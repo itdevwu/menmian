@@ -2,7 +2,7 @@
 
 <h1>MenMian（门面）</h1>
 
-[中文 README](./README_ZH.md)
+[English README](./README.md)
 
 <a alt="itdevwu Open Source" href="https://docs.itdevwu.com"><img src="https://docs.itdevwu.com/img/itdevwu-opensource.svg" height="24px"></img></a>
 <img alt="License" src="https://img.shields.io/github/license/itdevwu/menmian?style=for-the-badge&logo=apache" height="24px">
