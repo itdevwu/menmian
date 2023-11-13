@@ -1,0 +1,28 @@
+{
+    "title": "itdevwu's Homepage",
+    "description": "博觀約取，厚積薄發",
+    "name": "Astor WU",
+    "motto": "博觀約取，厚積薄發",
+    "socials": {
+        "github": {
+            "url": "https://github.com/itdevwu"
+        },
+        "linkedin": {
+            "url": "https://www.linkedin.com/in/zhenglong-wu/"
+        },
+        "orcid": {
+            "url": "https://orcid.org/0000-0002-1956-2877"
+        }
+    },
+    "links": [
+        {
+            "name": "Blog",
+            "url": "https://blog.itdevwu.com"
+        },
+        {
+            "name": "Docs",
+            "url": "https://docs.itdevwu.com"
+        }
+    ],
+    "footer": "An itdevwu™ Open Source Project with ❤️."
+}
