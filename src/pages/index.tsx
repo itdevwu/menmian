@@ -1,118 +1,137 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { Josefin_Sans, Noto_Sans_SC, Noto_Serif_SC } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+import userInfo from '../../user_info.json'
+import Footer from '../components/Footer'
+import AnimatedLogo from '../components/Avatar'
 
-export default function Home() {
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faOrcid } from '@fortawesome/free-brands-svg-icons'
+import Head from 'next/head'
+
+// fontawesome settings
+config.autoAddCss = false
+
+const CJK_Sans = Noto_Sans_SC({ subsets: ['latin-ext', 'latin'] });
+const CJK_Serif = Noto_Serif_SC({ subsets: ["latin"], weight: ["600"] });
+const Name_Font = Josefin_Sans({ subsets: ['latin'], weight: ["700"] });
+const Link_Font = Josefin_Sans({ subsets: ['latin'], weight: ["400"] });
+
+const color_to_list = ["via-indigo-500", "via-cyan-500", "via-blue-500", "via-sky-500", "via-purple-500", "via-teal-500"]
+const color_via_list = ["to-indigo-500", "to-cyan-500", "to-blue-500", "to-sky-500", "to-purple-500", "to-teal-500"]
+
+const pick_two_colors = () => {
+  const color1 = color_to_list[Math.floor(Math.random() * color_to_list.length)]
+  const color2 = color_via_list[Math.floor(Math.random() * color_via_list.length)]
+  return [color1, color2]
+}
+
+const Home = (props: any) => {
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className={`${CJK_Sans.className} bg-gradient-to-r from-white ${props.colors[0]} ${props.colors[1]} from-8% via-55% to-68% h-screen w-screen flex`}
     >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+
+      <Head>
+        <title>{props.userTitle}</title>
+        <meta name="description" content={props.userDescription} />
+
+        <meta property="og:title" content={props.userTitle} />
+        <meta property="og:description" content={props.userDescription} />
+        <meta property="og:type" content="website" />
+
+        {
+          props.userLinks.map((link: any) => (
+            <link rel="preconnect" key={link.name} href={link.url}></link>
+          ))
+        }
+      </Head>
+
+      <div className='m-auto justify-center w-screen'>
+        <header className="h-6 w-full"></header>
+
+        <div className="infoCard m-auto backdrop-blur bg-white/70 rounded shadow-2xl">
+          <AnimatedLogo />
+
+          <h1 className={`name ${Name_Font.className} text-center py-3`}>{props.userName}</h1>
+
+          <div className={`${CJK_Serif.className} motto text-center tracking-[0.5rem] py-6`}>
+            {props.userMotto}
+          </div>
+
+          <div className={`links text-center pt-6 pb-12 ${Link_Font.className}`}>
+            {
+              props.userLinks.map((link: any) => (
+                <a
+                  href={link.url}
+                  key={link.name}
+                  className='transition duration-500 link px-5 pt-4 pb-3 mx-4 text-lg uppercase tracking-widest rounded align-middle border-solid opacity-20 hover:opacity-100 border border-black hover:shadow-xl'
+                >
+                  {link.name}
+                </a>
+              ))
+            }
+          </div>
+
+          <div className='socialLinks pb-10'>
+            {
+              props.userSocials.github && (
+                <a
+                  href={props.userSocials.github.url}
+                  aria-label={`Link to ${props.userName}'s GitHub`}
+                  target="_blank"
+                  className='social w-8 transition duration-500 opacity-20 hover:opacity-100 px-5'
+                >
+                  <FontAwesomeIcon size="2x" icon={faGithub} />
+                </a>
+              )
+            }
+            {
+              props.userSocials.linkedin && (
+                <a
+                  href={props.userSocials.linkedin.url}
+                  aria-label={`Link to ${props.userName}'s Linkedin`}
+                  target="_blank"
+                  className='social w-8 transition duration-500 opacity-20 hover:opacity-100 px-5'
+                >
+                  <FontAwesomeIcon size="2x" icon={faLinkedin} />
+                </a>
+              )
+            }
+            {
+              props.userSocials.orcid && (
+                <a
+                  href={props.userSocials.orcid.url}
+                  aria-label={`Link to ${props.userName}'s ORCID`}
+                  target="_blank"
+                  className='social w-8 transition duration-500 opacity-20 hover:opacity-100 px-5'
+                >
+                  <FontAwesomeIcon size="2x" icon={faOrcid} />
+                </a>
+              )
+            }
+          </div>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <Footer user={props.userName} userFooter={props.userFooter} />
       </div>
     </main>
   )
 }
+
+Home.getInitialProps = async () => {
+  return {
+    userTitle: userInfo.title as String,
+    userDescription: userInfo.description as String,
+    userName: userInfo.name as String,
+    userMotto: userInfo.motto as String,
+    userSocials: userInfo.socials,
+    userLinks: userInfo.links as Array<any>,
+    userFooter: userInfo.footer as String,
+    colors: pick_two_colors()
+  }
+}
+
+export default Home;

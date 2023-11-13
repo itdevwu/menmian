@@ -8,20 +8,50 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.name {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.2;
+  color: rgb(var(--foreground-rgb));
+}
+
+.socialLinks {
+  margin: auto;
+  text-align: center;
+  word-spacing: 3rem;
+}
+
+.infoCard {
+  width: 640px;
+  max-width: 95%;
+}
+
+@media (max-width: 768px) {
+  .infoCard {
+    width: 90%;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+footer {
+  letter-spacing: 0.1rem;
+}
+
+svg .svg-elem-1 {
+  stroke-dashoffset: 14198.3564453125px;
+  stroke-dasharray: 14198.3564453125px;
+  fill: transparent;
+  -webkit-transition: stroke-dashoffset 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0s,
+      fill 1s ease-in 1s;
+  transition: stroke-dashoffset 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0s,
+      fill 1s ease-in 1s;
+}
+
+svg.active .svg-elem-1 {
+  stroke-dashoffset: 0;
+  fill: rgb(20, 20, 20);
+}
+
+div .wrapper {
+  margin: auto;
+  text-align: center;
 }
