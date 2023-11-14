@@ -12,13 +12,12 @@ const Logo = (props: any) => {
     )
 };
 
-export default function AnimatedLogo() {
-    useEffect(() => {var wrapper = document.querySelector('.wrapper svg')
-        if (!wrapper) {
-            console.log('wrapper not found');
-            return;
+export default function AnimatedLogo(props: any) {
+    useEffect(() => {
+        var wrapper = document.querySelector('.wrapper svg')
+        if (wrapper) {
+            wrapper.classList.add('active');
         }
-        wrapper.classList.add('active');
     }, []);
 
     return (
