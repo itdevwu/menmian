@@ -23,16 +23,28 @@ const Link_Font = Josefin_Sans({ subsets: ['latin'], weight: ["400"] });
 const color_to_list = ["via-indigo-500", "via-cyan-500", "via-blue-500", "via-sky-500", "via-purple-500", "via-teal-500"]
 const color_via_list = ["to-indigo-500", "to-cyan-500", "to-blue-500", "to-sky-500", "to-purple-500", "to-teal-500"]
 
-const pick_two_colors = () => {
-  const color1 = color_to_list[Math.floor(Math.random() * color_to_list.length)]
-  const color2 = color_via_list[Math.floor(Math.random() * color_via_list.length)]
-  return [color1, color2]
+const color_schemes = [
+  "from-white via-sky-300 to-teal-300",
+  "from-white via-teal-500 to-sky-500",
+  "from-blue-200 to-teal-100",
+  "from-[#8EC5FC] to-[#E0C3FC]",
+  "from-[#8BC6EC] to-[#9599E2]",
+  "from-teal-200 via-[#FFD28F] to-[#83A2FF]",
+  "from-[#DDF2FD] to-[#427D9D]",
+];
+
+const pick_color_scheme = () => {
+  const hour = new Date().getHours()
+  const minute = new Date().getMinutes()
+  const second = new Date().getSeconds()
+  const index = (hour * 3600 + minute * 60 + second) % color_schemes.length
+  return color_schemes[index]  
 }
 
 const Home = (props: any) => {
   return (
     <main
-      className={`${CJK_Sans.className} bg-gradient-to-r from-white ${props.colors[0]} ${props.colors[1]} from-8% via-55% to-68% h-screen w-screen flex`}
+      className={`${CJK_Sans.className} bg-gradient-to-r ${props.colors} h-screen w-screen flex`}
     >
 
       <Head>
@@ -130,7 +142,7 @@ Home.getInitialProps = async () => {
     userSocials: userInfo.socials,
     userLinks: userInfo.links as Array<any>,
     userFooter: userInfo.footer as String,
-    colors: pick_two_colors()
+    colors: pick_color_scheme()
   }
 }
 
