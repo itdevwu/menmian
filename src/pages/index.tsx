@@ -3,6 +3,7 @@ import { Josefin_Sans, Noto_Sans_SC, Noto_Serif_SC } from 'next/font/google'
 import userInfo from '../../user_info.json'
 import Footer from '../components/Footer'
 import AnimatedLogo from '../components/Avatar'
+import { ImageAvatar } from '../components/Avatar'
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
@@ -38,10 +39,15 @@ const pick_color_scheme = () => {
   const minute = new Date().getMinutes()
   const second = new Date().getSeconds()
   const index = (hour * 3600 + minute * 60 + second) % color_schemes.length
-  return color_schemes[index]  
+  return color_schemes[index]
 }
 
 const Home = (props: any) => {
+  var avatar = <AnimatedLogo />;
+  if (props.userAvatar != null) {
+    avatar = ImageAvatar(props);
+  }
+
   return (
     <main
       className={`${CJK_Sans.className} bg-gradient-to-r ${props.colors} h-screen w-screen flex`}
@@ -66,7 +72,8 @@ const Home = (props: any) => {
         <header className="h-6 w-full"></header>
 
         <div className="infoCard m-auto backdrop-blur bg-white/70 rounded shadow-2xl">
-          <AnimatedLogo />
+          
+          {avatar}
 
           <h1 className={`name ${Name_Font.className} text-center py-3`}>{props.userName}</h1>
 
@@ -134,11 +141,17 @@ const Home = (props: any) => {
 }
 
 Home.getInitialProps = async () => {
+  var avatar = null;
+  if (userInfo.hasOwnProperty('avatar')) {
+    avatar = userInfo.avatar as String;
+  }
+
   return {
     userTitle: userInfo.title as String,
     userDescription: userInfo.description as String,
     userName: userInfo.name as String,
     userMotto: userInfo.motto as String,
+    userAvatar: avatar,
     userSocials: userInfo.socials,
     userLinks: userInfo.links as Array<any>,
     userFooter: userInfo.footer as String,

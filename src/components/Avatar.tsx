@@ -12,7 +12,20 @@ const Logo = (props: any) => {
     )
 };
 
-export default function AnimatedLogo(props: any) {
+export function ImageAvatar(props: any) {
+    return (
+        <div className='imageAvatar py-10'>
+            <img
+                src={props.userAvatar}
+                alt="Avatar"
+                className='rounded-full m-auto w-1/6 hover:shadow-2xl hover:w-1/5 duration-500'
+            ></img>
+        </div>
+    )
+}
+
+
+export default function AnimatedLogo() {
     useEffect(() => {
         var wrapper = document.querySelector('.wrapper svg')
         if (wrapper) {
@@ -21,7 +34,7 @@ export default function AnimatedLogo(props: any) {
     }, []);
 
     return (
-        <div className="wrapper w-1/6 py-10">
+        <div className="wrapper w-1/5 py-10">
             <Logo />
         </div>
     )
