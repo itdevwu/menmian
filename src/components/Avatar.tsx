@@ -34,7 +34,7 @@ export default function AnimatedLogo() {
     }, []);
 
     return (
-        <div className="wrapper w-1/5 py-10">
+        <div className="wrapper py-10 w-1/5">
             <Logo />
         </div>
     )

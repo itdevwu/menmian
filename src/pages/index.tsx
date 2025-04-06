@@ -143,7 +143,7 @@ const Home = (props: any) => {
 Home.getInitialProps = async () => {
   var avatar = null;
   if (userInfo.hasOwnProperty('avatar')) {
-    avatar = userInfo.avatar as String;
+    // avatar = userInfo.avatar as String;
   }
 
   return {
