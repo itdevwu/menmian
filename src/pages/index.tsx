@@ -72,7 +72,7 @@ const Home = (props: any) => {
         <header className="h-6 w-full"></header>
 
         <div className="infoCard m-auto backdrop-blur bg-white/70 rounded shadow-2xl">
-          
+
           {avatar}
 
           <h1 className={`name ${Name_Font.className} text-center py-3`}>{props.userName}</h1>
@@ -134,7 +134,7 @@ const Home = (props: any) => {
             }
           </div>
         </div>
-        <Footer user={props.userName} userFooter={props.userFooter} />
+        <Footer user={props.userName} userFooter={props.userFooter} reload={true ? !(props.userAvatar != null) : false} />
       </div>
     </main>
   )
